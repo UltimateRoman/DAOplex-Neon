@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract DAOplexBond is ERC721, ERC721URIStorage, ERC721Burnable, AccessControl {
+contract DAOPlexBond is ERC721, ERC721URIStorage, ERC721Burnable, AccessControl {
     using Counters for Counters.Counter;
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
@@ -29,11 +29,7 @@ contract DAOplexBond is ERC721, ERC721URIStorage, ERC721Burnable, AccessControl 
     function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
         super._burn(tokenId);
     }
-
-    // function burn(uint256 tokenId) external onlyRole(BURNER_ROLE) {
-    //     _burn(tokenId);
-    // }
-
+    
     function tokenURI(uint256 tokenId)
         public
         view

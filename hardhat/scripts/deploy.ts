@@ -1,12 +1,15 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const Bond = await ethers.getContractFactory("Bond");
-  const bond = await Bond.deploy();
+  const DAOPlexBond = await ethers.getContractFactory("DAOPlexBond");
+  const daoPlexBond = await DAOPlexBond.deploy();
+  await daoPlexBond.deployed();
+  console.log("Deployed Bond contract at: ", daoPlexBond.address);
 
-  await bond.deployed();
-
-  console.log("Deployed Bond contract at: ", bond.address);
+  const BondCreator = await ethers.getContractFactory("BondCreator");
+  const bondCreator = await BondCreator.deploy();
+  await bondCreator.deployed();
+  console.log("Deployed BondCreator contract at: ", bondCreator.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
