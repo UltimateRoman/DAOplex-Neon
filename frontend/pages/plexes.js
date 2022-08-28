@@ -78,7 +78,7 @@ const Plexes = () => {
                         </div>
                     }
                       <div>
-                        {plexes.map((plex, key) => (
+                        {plexes.map((plex) => (
                             <div style={{ width: '18rem' }}>
                                 <div>
                                     <div>DAO: {plex.daoname}</div>
