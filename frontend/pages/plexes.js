@@ -21,7 +21,7 @@ import BondCreator from "../abis/BondCreator.json";
 
 const client = new Web3Storage({ token: process.env.TOKEN });
 
-const plexes = () => {
+const Plexes = () => {
     const [plexCount, setPlexCount] = useState(0);
     const [plexes, setPlexes] = useState([]);
 
@@ -104,4 +104,4 @@ const plexes = () => {
     );
 }
 
-export default plexes;
+export default Plexes;
