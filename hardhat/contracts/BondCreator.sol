@@ -26,8 +26,7 @@ contract BondCreator is Ownable {
 
     struct BondNFT {
         address owner;
-        address dao;
-        address daotoken;
+        PlexData plexData;
     }
 
     uint256 public nftCount;
@@ -52,17 +51,16 @@ contract BondCreator is Ownable {
     function purchaseBondNFT(address dao, string memory uri) external {
         require(DAOPlexes[dao].amountSold < 100, "Sold out");
         DAOPlexes[dao].amountSold += 1;
-        IERC20(DAOPlexes[dao].stablecoin).transferFrom(msg.sender, address(this), 100 ether / DAOPlexes[dao].ratePerStablecoin);
-        bondNFTs[nftCount] = BondNFT(msg.sender, dao, DAOPlexes[dao].daotoken);
+        IERC20(DAOPlexes[dao].stablecoin).transferFrom(msg.sender, dao, 100 ether / DAOPlexes[dao].ratePerStablecoin);
+        bondNFTs[nftCount] = BondNFT(msg.sender, DAOPlexes[dao]);
         NFT_Contract.safeMint(msg.sender, uri);
         nftCount += 1; 
     }
 
     function redeemBondForTokens(uint256 tokenId) external {
-        require(DAOPlexes[bondNFTs[tokenId].dao].expiry > block.timestamp, "Bond expired");
-        require(userAmountOfPlex[bondNFTs[tokenId].dao][msg.sender] > 0, "No bonds owned");
-        IERC20(bondNFTs[tokenId].daotoken).transfer(msg.sender, 100 ether);
-        NFT_Contract.transferFrom(msg.sender, address(this), tokenId);
+        require(bondNFTs[tokenId].plexData.expiry > block.timestamp, "Bond expired");
+        require(userAmountOfPlex[bondNFTs[tokenId].plexData.dao][msg.sender] > 0, "No bonds owned");
+        IERC20(bondNFTs[tokenId].plexData.daotoken).transferFrom(bondNFTs[tokenId].plexData.dao, msg.sender, 100 ether);
         NFT_Contract.burn(tokenId);
     }
 }

@@ -30,8 +30,6 @@ const config: HardhatUserConfig = {
       url: proxy_url,
       accounts: [deployerPrivateKey as any],
       chainId: network_id,
-      gas: 3000000,
-      gasPrice: 1000000000,
       blockGasLimit: 10000000,
       allowUnlimitedContractSize: false,
       timeout: 1000000
